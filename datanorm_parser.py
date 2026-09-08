@@ -9,7 +9,7 @@ ENCODING_CHOICES = {
     "Windows-1252 / Latin-1": "cp1252",
 }
 
-# Step 2: encoding detection + manual override
+#encoding detection and manual overide
 
 def detect_encoding(raw: bytes, override: Optional[str] = None) -> Tuple[str, List[str]]:
     warnings: List[str] = []
@@ -45,7 +45,7 @@ def decode_file(raw: bytes, override: Optional[str] = None) -> Tuple[str, str, L
     return text, encoding, warnings
 
 
-# Step 3: classify_file(filename)
+#classify_file(filename)
 
 def classify_file(filename: str) -> str:
     name = filename.upper()
@@ -60,7 +60,7 @@ def classify_file(filename: str) -> str:
     return "article"
 
 
-#Step 4: parse_line(satzart, fields)
+#parse_line(satzart, fields)
 
 def split_line(line: str) -> Tuple[str, List[str]]:
     parts = line.split(";")
@@ -97,7 +97,7 @@ def parse_line(satzart: str, fields: List[str]) -> Optional[dict]:
     return None
 
 
-# Step 5: warnings collection
+#warnings collection
 
 def parse_file(filename: str, text: str) -> Tuple[List[dict], List[str]]:
     records: List[dict] = []
@@ -126,7 +126,7 @@ def parse_file(filename: str, text: str) -> Tuple[List[dict], List[str]]:
     return records, warnings
 
 
-# Step 6: merge_catalog(parsed_files)
+#merge_catalog(parsed_files)
 
 def merge_catalog(all_records: List[dict]) -> Tuple[pd.DataFrame, List[str]]:
     warnings: List[str] = []
@@ -176,7 +176,7 @@ def merge_catalog(all_records: List[dict]) -> Tuple[pd.DataFrame, List[str]]:
     return df, warnings
 
 
-# Step 7-10: export_excel / export_csv / export_json / export_sqlite
+#export_excel / export_csv / export_json / export_sqlite
 
 def export_excel(df: pd.DataFrame, path: str) -> None:
     df.to_excel(path, index=False)
